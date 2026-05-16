@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(go build *)",
-      "PowerShell(Get-Process -Name \"backend\" -ErrorAction SilentlyContinue | Stop-Process -Force; Start-Sleep -Milliseconds 600; Start-Process -FilePath \".\\\\backend.exe\" -WorkingDirectory \"c:\\\\Users\\\\askar\\\\My_Project\\\\invest\" -WindowStyle Hidden; Start-Sleep -Seconds 2; $r = try { \\(Invoke-WebRequest -Uri \"http://localhost:8081/health\" -UseBasicParsing -TimeoutSec 3\\).StatusCode } catch { \"unreachable\" }; Write-Host \"backend: $r\")",
-      "Bash(go version *)"
-    ]
-  }
-}
