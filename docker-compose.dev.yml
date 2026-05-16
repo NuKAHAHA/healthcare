@@ -1,0 +1,45 @@
+# Override file for local development.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+version: "3.9"
+
+services:
+  postgres:
+    ports:
+      - "5432:5432"   # expose for local psql / Adminer
+
+  redis:
+    ports:
+      - "6379:6379"   # expose for redis-cli
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev  # uses 'air' for hot reload
+    environment:
+      APP_ENV:      development
+      DB_SSL_MODE:  disable
+      LOG_LEVEL:    debug
+    volumes:
+      - .:/app                  # mount source for air hot reload
+      - /app/healthcare-api     # prevent binary from being overwritten
+    ports:
+      - "8080:8080"
+    # override CMD: use air for hot reload
+    command: ["air", "-c", ".air.toml"]
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev   # runs 'vite dev'
+    environment:
+      VITE_API_URL: http://localhost:8080
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: ["npm", "run", "dev", "--", "--host"]
+
+  # No Caddy in dev — access services directly on their ports
+  caddy:
+    profiles: ["production"]  # exclude from dev

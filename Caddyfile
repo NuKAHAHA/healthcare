@@ -1,0 +1,37 @@
+# ============================================================
+# Caddyfile — automatic HTTPS with Let's Encrypt
+# Replace 'yourdomain.com' with your actual domain.
+# For local dev use docker-compose.dev.yml instead.
+# ============================================================
+
+yourdomain.com {
+    # Reverse-proxy API to backend
+    handle /api/* {
+        uri strip_prefix /api
+        reverse_proxy backend:8080 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # Serve frontend SPA; fall back to index.html for client-side routing
+    handle {
+        reverse_proxy frontend:80
+    }
+
+    # HSTS and security headers (Caddy adds HTTPS automatically)
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+
+    log {
+        output file /var/log/caddy/access.log
+        format json
+    }
+}
+
+# Redirect bare HTTP → HTTPS (Caddy handles this automatically)

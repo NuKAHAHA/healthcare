@@ -1,0 +1,33 @@
+# Build artifacts
+healthcare-api
+healthcare-api.exe
+*.test
+*.out
+coverage.html
+
+# Dev environment
+.env
+.env.*
+!.env.example
+
+# VCS
+.git
+.gitignore
+
+# Docs / scripts
+*.md
+scripts/
+seed/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Frontend (built separately)
+frontend/
+
+# Temp
+tmp/
+temp/
+*.tmp

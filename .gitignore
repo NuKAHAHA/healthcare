@@ -1,0 +1,74 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Go build/test artifacts
+*.o
+*.a
+*.so
+.DS_Store
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+.env.local
+.env*.local
+
+# Build output
+healthcare-api
+healthcare-api.exe
+
+# Environment files (never commit real secrets)
+.env
+.env.production
+.env.staging
+
+# Logs
+*.log
+logs/
+
+# Database backups
+*.sql.dump
+*.sql.backup
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# IDE specific
+.vscode/settings.json
+.vscode/extensions.json
+*.code-workspace
+
+# Build artifacts
+dist/
+build/
+
+# Security scan reports
+gosec-report.json
+govuln-report.json

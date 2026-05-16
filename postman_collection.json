@@ -1,0 +1,342 @@
+{
+  "info": {
+    "name": "Healthcare API - Complete",
+    "_postman_id": "b8df5b1f-4a2d-4d5d-b2c7-5bb0fbae9002",
+    "description": "Complete Postman collection for Healthcare API with all endpoints for Admin, Registrar, and Doctor roles.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login as Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@healthcare.local\",\n  \"password\": \"Admin@123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login as Registrar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"registrar@healthcare.local\",\n  \"password\": \"Registrar@123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login as Doctor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"doctor@healthcare.local\",\n  \"password\": \"Doctor@123456\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "👑 Admin Only",
+      "item": [
+        {
+          "name": "Register New User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newregistrar@healthcare.local\",\n  \"password\": \"Password@123456\",\n  \"firstName\": \"New\",\n  \"lastName\": \"Registrar\",\n  \"role\": \"registrar\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/audit-logs/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "audit-logs",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🏥 Registrar Tasks",
+      "item": [
+        {
+          "name": "Register Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{registrar_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Иван\",\n  \"lastName\": \"Иванов\",\n  \"email\": \"ivan@example.com\",\n  \"phone\": \"+79991234567\",\n  \"dateOfBirth\": \"1990-01-01\",\n  \"gender\": \"M\",\n  \"address\": \"Москва, Россия\",\n  \"medicalInfo\": \"Нет аллергии на лекарства\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/patients",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "patients"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Patient Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{registrar_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/patients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "patients",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{registrar_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patientId\": 1,\n  \"doctorId\": 3,\n  \"scheduledAt\": \"2026-04-20T10:00:00Z\",\n  \"reason\": \"Плановый осмотр\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/appointments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "appointments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "👨‍⚕️ Doctor Tasks",
+      "item": [
+        {
+          "name": "View Patient (Limited Access)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{doctor_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/patients/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "patients",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Treatment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{doctor_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": 1,\n  \"diagnosis\": \"Гипертония\",\n  \"prescription\": \"Лекарство А, 2 раза в день\",\n  \"notes\": \"Повторный приём через 2 недели\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/treatments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "treatments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "View Treatment Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{doctor_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/reports/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "reports",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "admin_token",
+      "value": ""
+    },
+    {
+      "key": "registrar_token",
+      "value": ""
+    },
+    {
+      "key": "doctor_token",
+      "value": ""
+    }
+  ]
+}
